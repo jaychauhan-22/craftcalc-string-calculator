@@ -40,4 +40,16 @@ class CalcTest {
         Assertions.assertEquals(3, result);
     }
 
+    @Test
+    void test_02_multiNumbers() {
+        // Given
+        Calc calc = new Calc();
+
+        // When
+        int result = calc.add("1,2,3,10,32,43");
+
+        // Then
+        Assertions.assertEquals(91, result);
+    }
+
 }
