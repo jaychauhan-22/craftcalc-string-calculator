@@ -28,4 +28,16 @@ class CalcTest {
         Assertions.assertEquals(1, result);
     }
 
+    @Test
+    void test_02_twoNumbers() {
+        // Given
+        Calc calc = new Calc();
+
+        // When
+        int result = calc.add("1,2");
+
+        // Then
+        Assertions.assertEquals(3, result);
+    }
+
 }
