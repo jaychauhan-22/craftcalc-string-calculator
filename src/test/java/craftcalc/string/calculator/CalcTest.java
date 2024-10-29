@@ -3,15 +3,29 @@ package craftcalc.string.calculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 class CalcTest {
-
-
     @Test
-    // Sample Test 1
-    void add() {
+    void test_01_blank() {
+        // Given
         Calc calc = new Calc();
+
+        // When
         int result = calc.add("");
+
+        // Then
         Assertions.assertEquals(0, result);
     }
+
+    @Test
+    void test_02_singleNumber() {
+        // Given
+        Calc calc = new Calc();
+
+        // When
+        int result = calc.add("1");
+
+        // Then
+        Assertions.assertEquals(1, result);
+    }
+
 }
