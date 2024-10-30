@@ -13,31 +13,54 @@ public class Calc {
             case '7': return 7;
             case '8': return 8;
             case '9': return 9;
+            case '-': return -2;
             default: return -1;
         }
     }
     int core_add(int num1,int num2){
         return num1 + num2;
     }
-    int add(String numbers){
-        // Variable declaration
-        int sum = 0,nextnumber = 0, scanneddigit = 0;
 
-        // Iterate over the input
-        for(int i=0;i<numbers.length();i++) {
-            // Scan the next character to check if it is an integer digit or not
-            scanneddigit = fetchNextIntDigit(numbers.charAt(i));
-            // -1: Not an int digit
-            if(scanneddigit != -1){
-                nextnumber = nextnumber * 10 + scanneddigit;
+    int add(String numbers) {
+        int sum = 0, currnumber = 0;
+        boolean isCurrNegative = false, negativeFound = false;
+        String errMsg = "Negative numbers not allowed: ";
+
+        for (int i = 0; i < numbers.length(); i++) {
+            int digit = fetchNextIntDigit(numbers.charAt(i));
+
+            // Check for negative sign
+            if (digit == -2) {
+                isCurrNegative = true;
                 continue;
             }
-            // Add the number to result
-            sum  = core_add(sum, nextnumber);
-            nextnumber = 0;
+
+            // Check for valid digit
+            if (digit >= 0) {
+                currnumber = currnumber * 10 + digit;
+                continue;
+            }
+
+            // Throw exception in case of negative number
+            if (isCurrNegative) {
+                errMsg +=  -currnumber + ", ";
+                negativeFound = true;
+            }
+
+            // Add the accumulated number to sum if it's not empty
+            sum = core_add(sum, currnumber);
+            currnumber = 0;
+            isCurrNegative = false;
         }
-        sum += nextnumber;
-        return sum;
+
+    if (negativeFound) {
+        throw new NegativeNumberException(errMsg + -currnumber);
+    }
+
+    // Add any remaining number in the buffer
+    sum = core_add(sum, currnumber);
+    return sum;
+
     }
 
 }
